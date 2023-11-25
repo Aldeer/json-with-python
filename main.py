@@ -5,29 +5,50 @@ from datetime import datetime
 ruta_archivo = "datos.json"
 
 
-def mostrarDatos():
+def crearRegistro():
+    # variable bandera
+    registrosExist = False
 
-    # Abriendo el archivo de datos json
+    # lista donde se almacenaran los registros existentes en el archivo json
+    registros = list()
+
+    # peticion de datos al usuario mediante inputs
+    nombre = input("Ingrese su nombre: ")
+    apellido = input("Ingrese su apellido: ")
+    edad = input("Ingrese su edad: ")
+    creadoEn = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+    # creando diccionario con los datos almacenados en las variables
+    registro = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "edad": edad,
+        "creado": creadoEn
+    }
+
+    # abrir el archivo json para guardar el diccionario
     try:
         with open(ruta_archivo) as archivo:
-            # trasnformando de formato json a tipos de dato en python
-            contenido = json.load(archivo)
-            # recorriendo el contenido del archivo
-            for persona in contenido:
-                # imprimiendo por pantalla los datos de las personas guardadas
-                # en el archivo json
-                print(persona)
+            registros = json.load(archivo)
+            registrosExist = True
     except Exception as e:
-        print(f"Se produjo el siguiente error: {e}")
+        print(e)
+
+    # condicion que se ejecuta si el archivo json se encuentra vacio o no
+    if not registrosExist:
+        try:
+            with open(ruta_archivo, "w") as archivo:
+                registros.append(registro)
+                json.dump(registros, archivo, indent=4)
+        except Exception as e:
+            print("Ha ocurrido un error inesperado: {e}")
+    else:
+        try:
+            with open(ruta_archivo, "w") as archivo:
+                registros.append(registro)
+                json.dump(registros, archivo, indent=4)
+        except Exception as e:
+            print("Ha ocurrido un error inesperado: {e}")
 
 
-def nuevoRegistro():
-    # ingreso del nombre por consola
-    nombre = input("Ingrese su nombre: ")
-    # ingreso del apellido por consola
-    apellido = input("Ingrese su apellido: ")
-    # fecha en la que se creo el registro
-    creandoEn = datetime.now()
-
-
-mostrarDatos()
+crearRegistro()

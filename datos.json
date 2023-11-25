@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "nombre": "homero",
+        "apellido": "simpson",
+        "edad": "47",
+        "creado": "25/11/2023 11:57:03"
+    },
+    {
+        "nombre": "bart",
+        "apellido": "simpson",
+        "edad": "12",
+        "creado": "25/11/2023 11:59:14"
+    }
+]
